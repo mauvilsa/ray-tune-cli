@@ -1,0 +1,5 @@
+model:
+  layer_1_size: 64
+  layer_2_size: 128
+  lr: 0.005
+  batch_size: 16

@@ -1,0 +1,56 @@
+reporter:
+  metric_columns:
+    - loss
+    - mean_accuracy
+    - training_iteration
+  parameter_columns:
+    - model.layer_1_size
+    - model.layer_2_size
+    - model.lr
+    - model.batch_size
+
+tune_callback:
+  class_path: TuneReportCallback
+  init_args:
+    metrics:
+      loss: ptl/val_loss
+      mean_accuracy: ptl/val_accuracy
+    'on': validation_end
+  #class_path: TuneReportCheckpointCallback
+  #init_args:
+  #  metrics:
+  #    loss: ptl/val_loss
+  #    mean_accuracy: ptl/val_accuracy
+  #  filename: checkpoint
+  #  'on': validation_end
+
+run:
+  metric: loss
+  mode: min
+  num_samples: 10
+  resources_per_trial:
+    cpu: 1
+    gpu: 0
+
+  name: tune_mnist_asha
+  scheduler:
+    class_path: AsyncHyperBandScheduler
+    init_args:
+      max_t: 10
+      grace_period: 1
+      reduction_factor: 2
+
+  #name: tune_mnist_pbt
+  #scheduler:
+  #  class_path: PopulationBasedTraining
+  #  init_args:
+  #    perturbation_interval: 4
+  #    hyperparam_mutations:
+  #      model.lr: tune.loguniform(1e-4, 1e-1)
+  #      model.batch_size: '[32, 64, 128]'
+
+  config:
+    model.layer_1_size: tune.choice([32, 64, 128])
+    model.layer_2_size: tune.choice([64, 128, 256])
+    model.lr: tune.loguniform(1e-4, 1e-1)
+    model.batch_size: tune.choice([32, 64, 128])
