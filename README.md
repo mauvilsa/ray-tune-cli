@@ -3,20 +3,20 @@ tune CLIs based on [jsonargparse](https://github.com/omni-us/jsonargparse). Only
 requires a function that uses
 [LightningCLI](https://pytorch-lightning.readthedocs.io/en/stable/common/lightning_cli.html)
 to run fit. The example is an adaptation of
-[ray/tune/examples/mnist_pytorch_lightning.py](https://github.com/ray-project/ray/blob/master/python/ray/tune/examples/mnist_pytorch_lightning.py).
+[ray/tune/examples/mnist_pytorch_lightning.py](https://github.com/ray-project/ray/python/ray/tune/examples/mnist_pytorch_lightning.py).
 To try out the code first install the packages listed in
-[requirements.txt](blob/master/requirements.txt).
+[requirements.txt](requirements.txt).
 
 The normal MNIST pytorch-lightning CLI is implemented in file
-[mnist_lightning_cli.py](blob/master/mnist_lightning_cli.py). For example, to
-run a fit you could do:
+[mnist_lightning_cli.py](mnist_lightning_cli.py). For example, to run a fit you
+could do:
 
     ./mnist_lightning_cli.py fit --config mnist_fit_config.yaml
 
 The ray tune CLI is implemented in file
-[mnist_ray_tune_cli.py](blob/master/mnist_ray_tune_cli.py). To run a
-hyperparameter search, this CLI first receives ray options, followed by "--" and
-then LightningCLI fit options. For example:
+[mnist_ray_tune_cli.py](mnist_ray_tune_cli.py). To run a hyperparameter search,
+this CLI first receives ray options, followed by "--" and then LightningCLI fit
+options. For example:
 
     ./mnist_ray_tune_cli.py --config mnist_tune_config.yaml -- --config mnist_fit_config.yaml
 
