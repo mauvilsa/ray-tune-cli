@@ -1,0 +1,4 @@
+pytorch-lightning
+jsonargparse[signatures]
+ray[tune]
+torchvision
